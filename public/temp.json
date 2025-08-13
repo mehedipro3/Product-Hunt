@@ -1,0 +1,38 @@
+[
+  {
+    "name": "AI Resume Builder",
+    "image": "https://img.freepik.com/free-photo/web-design-technology-browsing-programming-concept_53876-163260.jpg?semt=ais_hybrid&w=740&q=80",
+    "tags": ["AI", "Productivity", "Career"],
+    "votes": 12,
+    "ownerEmail": "john@example.com",
+    "featured": true,
+    "timestamp": { "$date": "2025-08-12T10:30:00Z" }
+  },
+  {
+    "name": "Crypto Portfolio Tracker",
+    "image": "https://images.pexels.com/photos/38519/macbook-laptop-ipad-apple-38519.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "tags": ["Finance", "Blockchain", "Web App"],
+    "votes": 8,
+    "ownerEmail": "sara@example.com",
+    "featured": true,
+    "timestamp": { "$date": "2025-08-11T14:20:00Z" }
+  },
+  {
+    "name": "Minimalist Task Manager",
+    "image": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe",
+    "tags": ["Productivity", "Task", "Minimal UI"],
+    "votes": 15,
+    "ownerEmail": "alex@example.com",
+    "featured": true,
+    "timestamp": { "$date": "2025-08-10T09:45:00Z" }
+  },
+  {
+    "name": "Virtual Fitness Coach",
+    "image": "https://www.jotform.com/blog/wp-content/uploads/2019/10/how-to-make-a-website-featured-01.png",
+    "tags": ["Health", "Fitness", "AI"],
+    "votes": 20,
+    "ownerEmail": "emma@example.com",
+    "featured": true,
+    "timestamp": { "$date": "2025-08-09T17:10:00Z" }
+  }
+]
