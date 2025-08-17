@@ -1,5 +1,12 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Autoplay } from 'swiper/modules';
+
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import SectionTitle from "../../SectionTitle/SectionTitle";
+
 
 const Cards = () => {
   const [cards, setCards] = useState([]);
@@ -13,18 +20,36 @@ const Cards = () => {
 
   return (
     <div>
-      <div className="text-center pt-2">
-        <h2 className="text-4xl font-bold text-blue-600">Featured Products</h2>
-        <p className="text-lg text-gray-500">Handpicked innovations making waves — upvote your favorites and explore the details.</p>
-      </div>
-      <div className="py-4 grid lg:grid-cols-4 md:grid-cols-2 gap-2 my-3 ">
-        {
-          cards.map(card => <Card key={card.name} card={card}></Card>)
-        }
-      </div>
-      <div className="text-center pb-2">
-        <btn className="btn btn-soft btn-primary text-2xl font-bold ">More Product</btn>
-      </div>
+      <SectionTitle heading={'Featured Products'} subHeading={'Handpicked innovations making waves — upvote your favorites and explore the details.'}></SectionTitle>
+
+      <Swiper
+        slidesPerView={3}
+        centeredSlides={true}
+        spaceBetween={30}
+        grabCursor={true}
+        autoplay={{
+          delay: 2000,           
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        modules={[Pagination, Autoplay]}
+        className="mySwiper mb-12"
+      >
+        <div className="py-4 grid lg:grid-cols-4 md:grid-cols-2 gap-2 my-3 ">
+
+          {
+            cards.map(card =>
+              <SwiperSlide key={card.name}>
+                <Card card={card}></Card>
+              </SwiperSlide>)
+          }
+
+        </div>
+      </Swiper>
     </div>
   );
 };
