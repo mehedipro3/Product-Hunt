@@ -18,7 +18,6 @@ const Products = () => {
 
   return (
     <div>
-      {/* Section Title */}
       <SectionTitle
         heading={"Trending Products"}
         subHeading={
