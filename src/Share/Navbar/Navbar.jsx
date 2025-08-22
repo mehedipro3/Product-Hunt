@@ -98,6 +98,9 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
+          <>
+            <button><Link to="/login" className="nav-link">Login</Link></button>
+          </>
           {/* {
             user ?
               <>
