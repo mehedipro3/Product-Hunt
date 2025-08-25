@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import img from "../../../assets/technology.jpg";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { useForm } from "react-hook-form";
 
 const SingUp = () => {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const onSubmit = data => {
+   console.log(data);
+    console.log(watch("example"))
+  }
   return (
     <div
       className="hero min-h-screen"
@@ -20,14 +27,16 @@ const SingUp = () => {
       <div className="hero-content flex-col lg:flex-row-reverse text-neutral-content">
         <div className="card w-full max-w-md shadow-2xl bg-base-100 text-base-content p-10 rounded-2xl">
           <h1 className="text-3xl font-bold text-blue-600 text-center mb-6">Create an Account</h1>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="label text-sm font-semibold">Full Name</label>
               <input
                 type="text"
+                {...register("name", { required: true })}
                 placeholder="Enter your name"
                 className="input input-bordered w-full"
               />
+              {errors.name && <span className="text-red-500">Name is required</span>}
             </div>
 
             <div>
@@ -35,8 +44,10 @@ const SingUp = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
+                {...register("email", { require: true })}
                 className="input input-bordered w-full"
               />
+              {errors.name && <span className="text-red-500">Email is required</span>}
             </div>
 
             <div>
@@ -44,8 +55,10 @@ const SingUp = () => {
               <input
                 type="password"
                 placeholder="Enter your password"
+                {...register("password", { require: true })}
                 className="input input-bordered w-full"
               />
+              {errors.name && <span className="text-red-500">Password is required</span>}
             </div>
 
             <div>
@@ -53,8 +66,10 @@ const SingUp = () => {
               <input
                 type="text"
                 placeholder="https://example.com/your-photo.jpg"
+                {...register("photo", { require: true })}
                 className="input input-bordered w-full"
               />
+              {errors.name && <span className="text-red-500">password is required</span>}
               <p className="text-xs mt-1 text-gray-500">
                 You can paste an image link (e.g., from <a href="https://imgbb.com/" target="_blank" rel="noreferrer" className="link link-primary">ImgBB</a>).
               </p>
