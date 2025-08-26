@@ -1,11 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/technology.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { useForm } from "react-hook-form";
+import useAuth from "../../Hook/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { SignIn } = useAuth();
+  const navigate = useNavigate();
+
   const handleGoogleLogin = () => {
     console.log("Google login clicked");
+  };
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+   // console.log(data.email);
+    SignIn(data.email, data.password)
+      .then(result => {
+        Swal.fire({
+          title: "User LogIn Successfully",
+          icon: "success",
+          draggable: true
+        });
+        console.log(result.user);
+        navigate('/');
+      });
+      
   };
 
   return (
@@ -31,12 +54,12 @@ const Login = () => {
             Welcome Back
           </h1>
 
-          {/* Form */}
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="label text-sm font-semibold">Email</label>
               <input
                 type="email"
+                {...register("email", { required: true })}
                 placeholder="Enter your email"
                 className="input input-bordered w-full"
               />
@@ -46,6 +69,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Enter your password"
+                {...register("password", { required: true })}
                 className="input input-bordered w-full"
               />
             </div>
