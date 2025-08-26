@@ -1,14 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../../assets/technology.jpg";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../Hook/useAuth";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { CreateUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(watch("email"));
+    //console.log(data);
+    CreateUser(data.email, data.password)
+      .then(result => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        updateUserProfile(data.name)
+          .then(() => {
+            const userInfo = {
+              name: data.name,
+              email: data.email
+            }
+            axiosPublic.post('/users', userInfo)
+              .then((res) => {
+                if (res.data.insertedId) {
+                  console.log('user added to the database')
+
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Your are successfully SingUp",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  navigate('/')
+                }
+              })
+          })
+      })
   };
 
   return (
@@ -96,7 +128,7 @@ const SignUp = () => {
               </p>
             </div>
 
-         
+
             <button className="btn bg-blue-600 text-white w-full mt-2">
               Register
             </button>

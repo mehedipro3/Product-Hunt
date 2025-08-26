@@ -7,18 +7,27 @@ import useAuth from "../../Hook/useAuth";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { SignIn } = useAuth();
+  const { SingIn, googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
-    console.log("Google login clicked");
+    googleLogin()
+      .then(result => {
+        console.log(result);
+
+        Swal.fire({ title: "Google Login Successful", icon: "success" });
+        navigate('/');
+      })
+      .catch(error => {
+        Swal.fire({ title: "Google Login Failed", text: error.message, icon: "error" });
+      });
   };
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-   // console.log(data.email);
-    SignIn(data.email, data.password)
+    // console.log(data.email);
+    SingIn(data.email, data.password)
       .then(result => {
         Swal.fire({
           title: "User LogIn Successfully",
@@ -28,7 +37,7 @@ const Login = () => {
         console.log(result.user);
         navigate('/');
       });
-      
+
   };
 
   return (
