@@ -7,6 +7,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Login from "../Pages/Login/Login";
 import SingUp from "../Pages/Home/SingUp/SingUp";
+import AllProducts from "../Pages/AllProducts/AllProducts";
 
 
 
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/productDetails",
         element: <ProductDetails></ProductDetails>
+      },
+      {
+        path: "/products",
+        element: <AllProducts></AllProducts>
       },
       {
         path: "/login",

@@ -66,7 +66,7 @@ const Login = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="label text-sm font-semibold">Email</label>
-              <input
+              <input  
                 type="email"
                 {...register("email", { required: true })}
                 placeholder="Enter your email"

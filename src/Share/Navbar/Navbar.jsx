@@ -1,15 +1,13 @@
-//import { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import './NavBar.css';
-//import { AuthContext } from '../../Provider/AuthProvider';
-import { FaShoppingCart } from 'react-icons/fa';
-//import useCart from '../../hooks/useCart';
+import useAuth from '../../Hook/useAuth';
 //import useAdmin from '../../hooks/useAdmin';
 const Navbar = () => {
 
-  // const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
   // const [isAdmin] = useAdmin();
-  // const [cart] = useCart();
+  console.log(user);
+
   const navOption =
     <>
       <li>
@@ -23,7 +21,7 @@ const Navbar = () => {
 
       <li>
         <NavLink
-          to="/menu"
+          to="/products"
           className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
         >
           Products
@@ -59,22 +57,13 @@ const Navbar = () => {
         </li>
       } */}
 
-      {/* <li>
-        <Link to={"/dashboard/cart"}>
-          <button className='flex items-center '>
-            <FaShoppingCart className='mr-2'></FaShoppingCart> 
-            <div className="badge badge-sm badge-secondary">+{cart.length}</div>
-          </button>
-        </Link>
-      </li> */}
-
     </>
 
-  // const handleLogout = () => {
-  //   logOut()
-  //     .then(() => { })
-  //     .then(error => console.log(error))
-  // }
+  const handleLogout = () => {
+    logOut()
+      .then(() => { })
+      .then(error => console.log(error))
+  }
 
   return (
     <>
@@ -90,7 +79,7 @@ const Navbar = () => {
               {navOption}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl text-[#1A2A80]">TechScout</a>
+          <a className="btn btn-ghost text-xl text-[#1A2A80]">AppVenture</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -98,19 +87,36 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <>
-            <button><Link to="/login" className="nav-link">Login</Link></button>
-          </>
-          {/* {
+          {
             user ?
               <>
-                <button className="btn btn-ghost" onClick={handleLogout}>Log Out</button>
+                <div className="dropdown dropdown-end">
+                  <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt={user?.displayName || "User"}
+                        src={user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                    <li>
+                      <a>
+                        {user?.displayName || "User"}
+                      </a>
+                    </li>
+                    <li><Link to="/dashboard">Dashboard</Link></li>
+                    <button className="btn btn-ghost" onClick={handleLogout}>Log Out</button>
+                  </ul>
+                </div>
               </>
               :
               <>
                 <button><Link to="/login" className="nav-link"> Login</Link></button>
               </>
-          } */}
+          }
         </div>
       </div>
     </>

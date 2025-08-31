@@ -13,35 +13,54 @@ const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    //console.log(data);
-    CreateUser(data.email, data.password)
-      .then(result => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        updateUserProfile(data.name)
-          .then(() => {
-            const userInfo = {
-              name: data.name,
-              email: data.email
-            }
-            axiosPublic.post('/users', userInfo)
-              .then((res) => {
-                if (res.data.insertedId) {
-                  console.log('user added to the database')
+  CreateUser(data.email, data.password)
+    .then(result => {
+      const loggedUser = result.user;
+      console.log("Firebase user created:", loggedUser);
 
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Your are successfully SingUp",
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  navigate('/')
-                }
-              })
-          })
-      })
-  };
+      // update profile with name + photo
+      updateUserProfile(data.name, data.photo)
+        .then(() => {
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+            photo: data.photo
+          };
+
+          axiosPublic.post('/users', userInfo)
+            .then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "You are successfully signed up!",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                navigate('/');
+              }
+            })
+            .catch(err => {
+              console.error("DB insert failed:", err);
+              Swal.fire("Error", "Failed to save user in DB", "error");
+            });
+        })
+        .catch(err => {
+          console.error("Profile update error:", err);
+          Swal.fire("Error", "Failed to update profile", "error");
+        });
+    })
+    .catch(error => {
+      console.error("Sign up error:", error);
+      if (error.code === "auth/email-already-in-use") {
+        Swal.fire("Oops", "This email is already registered. Please log in instead.", "warning");
+        navigate("/login");
+      } else {
+        Swal.fire("Error", error.message, "error");
+      }
+    });
+};
+
 
   return (
     <div
