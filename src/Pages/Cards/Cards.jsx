@@ -12,7 +12,7 @@ const Cards = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetch('./temp.json')
+    fetch("http://localhost:5000/products")
       .then(res => res.json())
       .then(data => setCards(data));
   }, [])
@@ -28,7 +28,7 @@ const Cards = () => {
         spaceBetween={30}
         grabCursor={true}
         autoplay={{
-          delay: 2000,           
+          delay: 1000,           
           disableOnInteraction: false,
         }}
         pagination={{

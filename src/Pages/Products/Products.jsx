@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 
 import SectionTitle from "../../SectionTitle/SectionTitle";
 import Card from "../Cards/Card";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("/temp.json") 
+    fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => {
         // Sort by vote count (descending) & take top 6
@@ -37,11 +38,12 @@ const Products = () => {
       </div>
 
       <div className="text-center py-3">
-        <button
+        <Link
+          to={"/products"}
           className="btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-shadow shadow-md hover:shadow-lg"
         >
           Show All Products
-        </button>
+        </Link>
       </div>
     </div>
   );
