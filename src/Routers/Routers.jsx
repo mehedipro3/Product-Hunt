@@ -1,16 +1,14 @@
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layouts/Main";
-import Home from "../Pages/Home/Home"; 
-import ErrorPage from "../Pages/ErrorPage/ErrorPage"; 
+import Home from "../Pages/Home/Home";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Login from "../Pages/Login/Login";
 import SingUp from "../Pages/Home/SingUp/SingUp";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import ContactUs from "../Pages/ContactUs/ContactUs";
-
-
+import DashBoard from "../Layouts/DashBoard";
+import AdminHome from "../DashBoard/Admin/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -20,28 +18,38 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
       },
       {
         path: "/products/:id",
-        element: <ProductDetails></ProductDetails>
+        element: <ProductDetails></ProductDetails>,
       },
       {
         path: "/products",
-        element: <AllProducts></AllProducts>
+        element: <AllProducts></AllProducts>,
       },
       {
         path: "/contactUs",
-        element: <ContactUs></ContactUs>
+        element: <ContactUs></ContactUs>,
       },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/singUp",
-        element: <SingUp></SingUp>
-      }
-    ]
+        element: <SingUp></SingUp>,
+      },
+    ],
+  },
+  {
+    path: "/dashBoard",
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path: "adminHome",
+        element: <AdminHome></AdminHome>,
+      },
+    ],
   },
 ]);
