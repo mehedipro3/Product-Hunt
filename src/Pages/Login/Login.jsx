@@ -5,54 +5,79 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hook/useAuth";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
 
 const Login = () => {
   const { SingIn, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleGoogleLogin = () => {
     googleLogin()
       .then(result => {
-        console.log(result);
+        const loggedUser = result.user;
 
-        Swal.fire({ title: "Google Login Successful", icon: "success" });
-        navigate('/');
+        const userInfo = {
+          name: loggedUser.displayName,
+          email: loggedUser.email,
+          photo: loggedUser.photoURL,
+          role: "user",            
+          createdAt: new Date()    
+        };
+
+        axiosPublic.post('/users', userInfo)
+          .then(res => {
+            if (res.data.insertedId || res.data.message === "User already exists") {
+              Swal.fire({
+                title: "Google Login Successful",
+                icon: "success",
+              });
+              navigate('/');
+            } else {
+              Swal.fire("Error", "Failed to save user in DB", "error");
+            }
+          })
+          .catch(err => {
+            console.error("DB insert failed:", err);
+            Swal.fire("Error", "Failed to save user in DB", "error");
+          });
       })
       .catch(error => {
-        Swal.fire({ title: "Google Login Failed", text: error.message, icon: "error" });
+        Swal.fire({
+          title: "Google Login Failed",
+          text: error.message,
+          icon: "error"
+        });
       });
   };
+
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(data.email);
     SingIn(data.email, data.password)
       .then(result => {
         Swal.fire({
           title: "User LogIn Successfully",
           icon: "success",
-          draggable: true
         });
-        console.log(result.user);
         navigate('/');
+      })
+      .catch(err => {
+        Swal.fire("Error", err.message, "error");
       });
-
   };
 
   return (
     <div
       className="hero min-h-screen relative"
-      style={{
-        backgroundImage: `url(${img})`,
-      }}
+      style={{ backgroundImage: `url(${img})` }}
     >
       <div className="hero-overlay bg-black/70"></div>
 
       <Link
         to="/"
-        className="absolute top-5 left-4 text-white text-4xl hover:text-blue-600
-        transition"
+        className="absolute top-5 left-4 text-white text-4xl hover:text-blue-600 transition"
       >
         <IoArrowBackCircle />
       </Link>
@@ -63,10 +88,11 @@ const Login = () => {
             Welcome Back
           </h1>
 
+          {/* Email/Password Login */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="label text-sm font-semibold">Email</label>
-              <input  
+              <input
                 type="email"
                 {...register("email", { required: true })}
                 placeholder="Enter your email"
@@ -97,6 +123,7 @@ const Login = () => {
 
           <div className="divider">OR</div>
 
+          {/* Google Login */}
           <button
             onClick={handleGoogleLogin}
             className="btn w-full flex items-center gap-2 border border-gray-300 bg-white text-black hover:bg-gray-100"

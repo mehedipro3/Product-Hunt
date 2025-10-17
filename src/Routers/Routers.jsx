@@ -9,6 +9,7 @@ import AllProducts from "../Pages/AllProducts/AllProducts";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import DashBoard from "../Layouts/DashBoard";
 import AdminHome from "../DashBoard/Admin/AdminHome";
+import AddProduct from "../DashBoard/AddProducts/Addproducts";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "adminHome",
         element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "addProducts",
+        element: <AddProduct></AddProduct>,
       },
     ],
   },
