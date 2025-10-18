@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { FaPlus } from "react-icons/fa";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
 
 const img_hosting_key = import.meta.env.VITE_IMAGE_KEY;
@@ -11,17 +10,15 @@ const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 const AddProduct = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      // 1️⃣ Upload main image to ImgBB
-      // 1️⃣ Create FormData for ImgBB
+      // image to ImgBB
       const formData = new FormData();
       formData.append("image", data.image[0]);
 
-      // 2️⃣ Upload to ImgBB
+      //Upload
       const imgRes = await axiosPublic.post(img_hosting_api, formData, {
         headers: { "content-type": "multipart/form-data" },
       });
@@ -31,19 +28,18 @@ const AddProduct = () => {
         return;
       }
 
-      // 2️⃣ Format gallery images
+      // Formatimages
       const galleryUrls = data.gallery
         .split(",")
         .map((url) => url.trim())
         .filter((url) => url !== "");
 
-      // 3️⃣ Format tags
+      //Format tags
       const tagsArray = data.tags
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
-      // 4️⃣ Construct product object based on your JSON structure
       const newProduct = {
         name: data.name,
         tagline: data.tagline,
@@ -80,7 +76,7 @@ const AddProduct = () => {
         votedUsers: [],
       };
 
-      // 5️⃣ Save to DB
+      // Save to DB
       const res = await axiosPublic.post("/products", newProduct);
       if (res.data.insertedId) {
         Swal.fire({
@@ -101,7 +97,7 @@ const AddProduct = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-bold mb-4 text-center">Add New Product</h1>
+      <h1 className="text-2xl font-bold  text-blue-600 mb-4 text-center">ADD NEW PRODUCT</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Product Name */}
         <input

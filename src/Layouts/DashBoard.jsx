@@ -1,20 +1,13 @@
 import { NavLink, Outlet } from "react-router";
-import {
-  FaAd,
-  FaCalendar,
-  FaHome,
-  FaList,
-  FaSearch,
-  FaShoppingCart,
-  FaUser,
-  FaUtensils,
-  FaVoicemail,
-} from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { AiOutlineProduct } from "react-icons/ai";
+import { GiShoppingCart } from "react-icons/gi";
+import { FaHome, FaList, FaSearch, FaUser, FaVoicemail } from "react-icons/fa";
 import { FiCheckSquare } from "react-icons/fi";
 
 const Dashboard = () => {
   const isAdmin = true;
-  
+
   const navLinkClasses = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
       isActive
@@ -42,43 +35,47 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink to="/dashboard/addProducts" className={navLinkClasses}>
-                  <FaUtensils /> Add Products
+                  <AiOutlineProduct /> Add Products
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manageItems" className={navLinkClasses}>
-                  <FaList /> Manage Items
+                <NavLink
+                  to="/dashboard/productreview "
+                  className={navLinkClasses}
+                >
+                  <FaList /> Product Review
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manageBooking" className={navLinkClasses}>
-                  <FiCheckSquare /> Manage Booking
+                <NavLink
+                  to="/dashboard/ReportedContents"
+                  className={navLinkClasses}
+                >
+                  <FiCheckSquare /> Reported Contents
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/users" className={navLinkClasses}>
-                  <FaUser /> All Users
+                  <FaUser /> All Users manage
                 </NavLink>
               </li>
             </>
           ) : (
             <>
               <li>
-                <NavLink to="/dashboard/reservation" className={navLinkClasses}>
-                  <FaCalendar />My Profile Page
+                <NavLink to="/dashboard/myProfile" className={navLinkClasses}>
+                  <CgProfile />
+                  My Profile Page
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/review" className={navLinkClasses}>
-                  <FaAd /> Add Product
+                <NavLink to="/dashboard/addProducts" className={navLinkClasses}>
+                  <AiOutlineProduct /> Add Products
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/dashboard/paymentHistory"
-                  className={navLinkClasses}
-                >
-                  <FaList /> My Products
+                <NavLink to="/dashboard/myProducts" className={navLinkClasses}>
+                  <GiShoppingCart /> My Products
                 </NavLink>
               </li>
             </>
@@ -93,12 +90,12 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/order/salad" className={navLinkClasses}>
-              <FaSearch /> Menu
+            <NavLink to="/products" className={navLinkClasses}>
+              <FaSearch /> All Products
             </NavLink>
           </li>
           <li>
-            <NavLink to="/order/contact" className={navLinkClasses}>
+            <NavLink to="/contactUs" className={navLinkClasses}>
               <FaVoicemail /> Contact
             </NavLink>
           </li>

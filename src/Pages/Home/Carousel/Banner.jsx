@@ -1,4 +1,5 @@
 import  { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [position, setPosition] = useState({ x: -9999, y: -9999 });
@@ -41,9 +42,9 @@ const Banner = () => {
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-md font-semibold transition-shadow shadow-md hover:shadow-lg">
             Explore Now
           </button>
-          <button className="border border-white hover:bg-white hover:text-gray-900 px-5 py-3 rounded-md font-semibold transition-shadow shadow-md hover:shadow-lg">
+          <Link to={"/dashboard/addProducts"} className="border border-white hover:bg-white hover:text-gray-900 px-5 py-3 rounded-md font-semibold transition-shadow shadow-md hover:shadow-lg">
             Submit Your Product
-          </button>
+          </Link>
         </div>
       </div>
     </div>
