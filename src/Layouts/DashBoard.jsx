@@ -40,7 +40,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/productreview "
+                  to="/dashboard/productReview"
                   className={navLinkClasses}
                 >
                   <FaList /> Product Review

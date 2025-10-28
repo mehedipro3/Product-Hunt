@@ -12,8 +12,9 @@ import AdminHome from "../DashBoard/Admin/AdminHome";
 import AddProduct from "../DashBoard/AddProducts/Addproducts";
 import MyProfile from "../DashBoard/MyProfile/MyProfile";
 import MyProducts from "../DashBoard/MyProducts/MyProducts";
-
-
+import UpdateProducts from "../DashBoard/UpdateProducts/UpdateProducts";
+import FAQ from "../Pages/FAQ/FAQ";
+import ProductReview from "../DashBoard/ProductReview/ProductReview";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/contactUs",
         element: <ContactUs></ContactUs>,
+      },
+      {
+        path: "/faq",
+        element: <FAQ></FAQ>
       },
       {
         path: "/login",
@@ -61,11 +66,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "myProfile",
-        element: <MyProfile></MyProfile>
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "productReview",
+        element: <ProductReview></ProductReview>,
       },
       {
         path: "myProducts",
-        element: <MyProducts></MyProducts>
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "update-product/:id",
+        element: <UpdateProducts></UpdateProducts>
       },
     ],
   },
